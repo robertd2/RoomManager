@@ -4,10 +4,12 @@ package com.android.robnet.myfirstapplication.logic.layout;
  * Created by AMARCINI on 01.12.2016.
  */
 
-public class AvailableLayout implements StateLayout {
+public class AvailableLayout extends StateLayout {
 
     public static int STATE_AVAILABLE = 1;
     private static AvailableLayout INSTANCE = null;
+
+    private static String STATUS = "AVAILABLE";
 
     private AvailableLayout() {}
 
@@ -25,17 +27,8 @@ public class AvailableLayout implements StateLayout {
     }
 
     @Override
-    public void setName(Layout layout) {
-            }
-
-    @Override
-    public void setTime(Layout layout) {
-
-    }
-
-    @Override
     public void setHintText1(Layout layout) {
-        layout.getScreenHint1().setText("AVAILABLE");
+        layout.getScreenHint1().setText(STATUS);
     }
 
     @Override

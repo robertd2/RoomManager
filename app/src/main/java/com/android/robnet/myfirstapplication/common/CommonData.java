@@ -10,8 +10,7 @@ public class CommonData {
     private String nfcSerial;
     private String roomName;
     private long state;
-    private String reservedTimeFrom;
-    private String reservedTimeTo;
+    private String time;
     private String theNearestEmptyRoom;
 
     public long getRoomId() {
@@ -46,20 +45,12 @@ public class CommonData {
         this.state = state;
     }
 
-    public String getReservedTimeFrom() {
-        return reservedTimeFrom;
+    public void setTime(String time) {
+        this.time = time;
     }
 
-    public void setReservedTimeFrom(String reservedTimeFrom) {
-        this.reservedTimeFrom = reservedTimeFrom;
-    }
-
-    public String getReservedTimeTo() {
-        return reservedTimeTo;
-    }
-
-    public void setReservedTimeTo(String reservedTimeTo) {
-        this.reservedTimeTo = reservedTimeTo;
+    public String getTime() {
+        return time;
     }
 
     public String getTheNearestEmptyRoom() {

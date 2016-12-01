@@ -5,12 +5,15 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.robnet.myfirstapplication.R;
+import com.android.robnet.myfirstapplication.common.CommonData;
 
 /**
  * Created by AMARCINI on 01.12.2016.
  */
 
 public class Layout {
+
+    CommonData commonData;
 
     RelativeLayout layoutTop;
     RelativeLayout layoutBottom;
@@ -115,5 +118,13 @@ public class Layout {
 
     public void setScreenHint2(TextView screenHint2) {
         this.screenHint2 = screenHint2;
+    }
+
+    public CommonData getCommonData() {
+        return commonData;
+    }
+
+    public void setCommonData(CommonData commonData) {
+        this.commonData = commonData;
     }
 }

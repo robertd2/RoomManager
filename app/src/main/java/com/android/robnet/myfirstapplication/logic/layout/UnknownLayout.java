@@ -4,10 +4,12 @@ package com.android.robnet.myfirstapplication.logic.layout;
  * Created by AMARCINI on 01.12.2016.
  */
 
-public class UnknownLayout implements StateLayout {
+public class UnknownLayout extends StateLayout {
 
     public static int STATE_UNKNOWN = 0;
     private static UnknownLayout INSTANCE = null;
+
+    private static String STATUS = "UNKNOWN";
 
     private UnknownLayout() {}
 
@@ -25,17 +27,13 @@ public class UnknownLayout implements StateLayout {
     }
 
     @Override
-    public void setName(Layout layout) {
-    }
-
-    @Override
     public void setTime(Layout layout) {
 
     }
 
     @Override
     public void setHintText1(Layout layout) {
-        layout.getScreenHint1().setText("unknown");
+        layout.getScreenHint1().setText(STATUS);
     }
 
     @Override
