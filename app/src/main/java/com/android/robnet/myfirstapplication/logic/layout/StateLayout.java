@@ -11,7 +11,12 @@ public abstract class StateLayout {
     abstract void setHintText2(Layout layout);
     abstract void setRoomStatus(Layout layout);
 
-    void setName(Layout layout) { layout.getRoomName().setText(layout.getCommonData().getRoomName()); }
+    void setName(Layout layout) {
+        String name = layout.getCommonData().getRoomName();
+        if(name != null) {
+            name = name.toUpperCase();
+        }
+        layout.getRoomName().setText(name); }
 
     void setTime(Layout layout) { layout.getTime().setText(layout.getCommonData().getTime()); }
 }

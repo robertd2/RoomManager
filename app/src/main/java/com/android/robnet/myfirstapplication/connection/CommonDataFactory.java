@@ -5,6 +5,11 @@ import com.google.gson.Gson;
 
 import org.json.JSONObject;
 
+import java.math.BigInteger;
+import java.security.SecureRandom;
+import java.util.Date;
+import java.util.Random;
+
 /**
  * Created by AMARCINI on 01.12.2016.
  */
@@ -17,9 +22,27 @@ public class CommonDataFactory {
 
         CommonData commonData = new CommonData();
 
+        Random generator = new Random();
+        int randomState = generator.nextInt(4);
+
+        SecureRandom random = new SecureRandom();
+        commonData.setNfcSerial(new BigInteger(130, random).toString(32));
+
         commonData.setRoomId(2137);
-        commonData.setNfcSerial("G6h0S3fbhU");
-        commonData.setState(5);
+        commonData.setState(randomState);
+
+        long ms = -946771200000L + (Math.abs(generator.nextLong()) % (70L * 365 * 24 * 60 * 60 * 1000));
+        commonData.setTime(new Date(ms).toString());
+
+        return commonData;
+    }
+
+    public static CommonData getHelloCommonData() {
+
+        CommonData commonData = new CommonData();
+
+        commonData.setRoomId(2137);
+        commonData.setState(0);
 
         return commonData;
     }

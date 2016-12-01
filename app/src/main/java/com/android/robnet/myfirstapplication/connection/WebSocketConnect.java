@@ -53,6 +53,8 @@ public class WebSocketConnect {
             Log.i("URI:",uri.toString());
         } catch (URISyntaxException e) {
             e.printStackTrace();
+            layout.getScreenHint1().setText("ERROR");
+            layout.getScreenHint1().setText(e.getMessage());
             return;
         }
 
@@ -61,8 +63,8 @@ public class WebSocketConnect {
             @Override
             public void onOpen(ServerHandshake handshakedata) {
                 Log.i("Websocket", "Opened");
-                CommonData cData = CommonDataFactory.getRandomCommonData();
-                String request = CommonDataFactory.toJSON(cData);
+                CommonData helloData = CommonDataFactory.getHelloCommonData();
+                String request = CommonDataFactory.toJSON(helloData);
                 mWebSocketClient.send(request);
             }
 
@@ -77,6 +79,10 @@ public class WebSocketConnect {
                         CommonData cData = CommonDataFactory.fromJSON(message);
                         layout.setCommonData(cData);
                         layout.setLayout();
+
+
+                        // wydmuszka, ze lecimy dalej:
+                        sendMessage(CommonDataFactory.toJSON(CommonDataFactory.getRandomCommonData()));
                     }
                 });
             }
@@ -84,11 +90,17 @@ public class WebSocketConnect {
             @Override
             public void onClose(int i, String s, boolean b) {
                 Log.i("Websocket", "Closed " + s);
+
+                layout.setCommonData(new CommonData());
+                layout.setLayout();
+
             }
 
             @Override
             public void onError(Exception e) {
                 Log.i("Websocket", "Error " + e.getMessage());
+                layout.getScreenHint1().setText("ERROR");
+                layout.getScreenHint1().setText(e.getMessage());
             }
         };
         mWebSocketClient.connect();
