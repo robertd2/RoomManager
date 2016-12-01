@@ -1,5 +1,6 @@
 package com.android.robnet.myfirstapplication;
 
+import android.app.Activity;
 import android.os.Build;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -8,14 +9,17 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.android.robnet.myfirstapplication.logic.layout.Layout;
+
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;
 
 import java.net.URI;
 import java.net.URISyntaxException;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 
+    private Layout layout;
     private static final int UNKNOWN_STATE = 0;
 
     private WebSocketClient mWebSocketClient;
@@ -27,37 +31,53 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.main_layout);
+
+        View rommStatus = findViewById(R.id.roomStatus);
+        rommStatus.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                Log.i("rooms", "connectWebsocketDummy");
+                connectWebsocketDummy();
+            }
+        });
+
+        layout = new Layout(getWindow().getDecorView().getRootView());
+        layout.setLayout(0);
+        Log.i("rooms", "done");
+
+
 
         /*
         Here we expect to connect to server to get important startup information
          */
         //connectWebSocket();
 
-        button = (Button) findViewById(R.id.button);
-        button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                //Produce data
-                connectWebsocketDummy();
-                //Room Name
-                RoomNameFragment newNameFragment = new RoomNameFragment();
-                Bundle args1 = new Bundle();
-                args1.putString(RoomNameFragment.ROOM_NAME, roomName);
-                newNameFragment.setArguments(args1);
-                //Room State
-                RoomStateFragment newStateFragment = new RoomStateFragment();
-                Bundle args2 = new Bundle();
-                args2.putInt(RoomStateFragment.ROOM_STATE, roomState);
-                newStateFragment.setArguments(args2);
-
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.room_name_fragment, newNameFragment);
-                transaction.replace(R.id.room_state_fragment, newStateFragment);
-
-                transaction.addToBackStack(null);
-                transaction.commit();
-            }
-        });
+//        button = (Button) findViewById(R.id.button);
+//        button.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View v) {
+//                //Produce data
+//                connectWebsocketDummy();
+//                //Room Name
+//                RoomNameFragment newNameFragment = new RoomNameFragment();
+//                Bundle args1 = new Bundle();
+//                args1.putString(RoomNameFragment.ROOM_NAME, roomName);
+//                newNameFragment.setArguments(args1);
+//                //Room State
+//                RoomStateFragment newStateFragment = new RoomStateFragment();
+//                Bundle args2 = new Bundle();
+//                args2.putInt(RoomStateFragment.ROOM_STATE, roomState);
+//                newStateFragment.setArguments(args2);
+//
+//                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+//                transaction.replace(R.id.room_name_fragment, newNameFragment);
+//                transaction.replace(R.id.room_state_fragment, newStateFragment);
+//
+//                transaction.addToBackStack(null);
+//                transaction.commit();
+//            }
+//        });
     }
 
     private void connectWebsocketDummy() {
@@ -65,7 +85,10 @@ public class MainActivity extends AppCompatActivity {
         //2. waiting for message -- CONTINUOUSLY
         //3. receiving message
         roomName = ConnectionUtils.getRoomNameFromResponse("message");
+
+
         roomState = ConnectionUtils.getRoomStateFromResponse("message");
+        layout.setLayout(roomState);
     }
 
     private void connectWebSocket() {
