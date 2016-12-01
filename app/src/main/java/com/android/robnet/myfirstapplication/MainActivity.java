@@ -2,8 +2,6 @@ package com.android.robnet.myfirstapplication;
 
 import android.app.Activity;
 import android.os.Build;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,6 +11,7 @@ import com.android.robnet.myfirstapplication.common.CommonData;
 import com.android.robnet.myfirstapplication.logic.layout.Layout;
 
 import org.java_websocket.client.WebSocketClient;
+import org.java_websocket.drafts.Draft_17;
 import org.java_websocket.handshake.ServerHandshake;
 
 import java.net.URI;
@@ -23,11 +22,12 @@ public class MainActivity extends Activity {
     private Layout layout;
     private static final int UNKNOWN_STATE = 0;
 
-    private WebSocketClient mWebSocketClient;
     private String roomName;
     private int roomState = UNKNOWN_STATE;
 
     private Button button;
+
+    private WebSocketClient mWebSocketClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,37 +51,10 @@ public class MainActivity extends Activity {
         layout.setLayout(0);
         Log.i("rooms", "done");
 
-
-
         /*
         Here we expect to connect to server to get important startup information
          */
-        //connectWebSocket();
-
-//        button = (Button) findViewById(R.id.button);
-//        button.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//                //Produce data
-//                connectWebsocketDummy();
-//                //Room Name
-//                RoomNameFragment newNameFragment = new RoomNameFragment();
-//                Bundle args1 = new Bundle();
-//                args1.putString(RoomNameFragment.ROOM_NAME, roomName);
-//                newNameFragment.setArguments(args1);
-//                //Room State
-//                RoomStateFragment newStateFragment = new RoomStateFragment();
-//                Bundle args2 = new Bundle();
-//                args2.putInt(RoomStateFragment.ROOM_STATE, roomState);
-//                newStateFragment.setArguments(args2);
-//
-//                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-//                transaction.replace(R.id.room_name_fragment, newNameFragment);
-//                transaction.replace(R.id.room_state_fragment, newStateFragment);
-//
-//                transaction.addToBackStack(null);
-//                transaction.commit();
-//            }
-//        });
+        connectWebSocket();
     }
 
     private void connectWebsocketDummy() {
@@ -95,21 +68,23 @@ public class MainActivity extends Activity {
         layout.setLayout(roomState);
     }
 
-    private void connectWebSocket() {
+    public void connectWebSocket() {
         URI uri;
+
         try {
-            uri = new URI("ws://websockethost:8080");
+            uri = new URI("ws://192.168.137.55:8080/ws");
+            Log.i("URI:",uri.toString());
         } catch (URISyntaxException e) {
             e.printStackTrace();
             return;
         }
 
-        mWebSocketClient = new WebSocketClient(uri) {
+        mWebSocketClient = new WebSocketClient(uri, new Draft_17()) {
 
             @Override
             public void onOpen(ServerHandshake handshakedata) {
                 Log.i("Websocket", "Opened");
-                mWebSocketClient.send("Hello from " + Build.SERIAL);
+                mWebSocketClient.send("Outduda" + Build.SERIAL);
             }
 
             @Override
@@ -118,8 +93,7 @@ public class MainActivity extends Activity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        //TextView textView = (TextView)findViewById(R.id.messages);
-                        //textView.setText(textView.getText() + "\n" + message);
+                        Log.i("BACK MESSAGE", message);
                     }
                 });
             }
