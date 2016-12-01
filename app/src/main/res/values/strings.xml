@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">RoomManager</string>
+    <string name="unknown">UNKNOWN</string>
+    <string name="available">AVAILABLE</string>
+    <string name="reserved">RESERVED</string>
+    <string name="occupied">OCCUPIED</string>
+    <string name="initializing">INITALIZING ...</string>
+</resources>
