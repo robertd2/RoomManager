@@ -6,6 +6,11 @@ package com.android.robnet.myfirstapplication.common;
 
 public class CommonData {
 
+    public static int STATE_UNKNOWN = 0;
+    public static int STATE_AVAILABLE = 1;
+    public static int STATE_RESERVED = 2;
+    public static int STATE_OCCUPIED = 3;
+
     private long roomId;
     private String nfcSerial;
     private String roomName;

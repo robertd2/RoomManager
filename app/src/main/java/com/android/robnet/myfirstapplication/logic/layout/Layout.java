@@ -47,19 +47,19 @@ public class Layout {
     public void setLayout(long state) {
         currentLayout = UnknownLayout.getInstance();
 
-        if(state == UnknownLayout.STATE_UNKNOWN) {
+        if(state == CommonData.STATE_UNKNOWN) {
             currentLayout = UnknownLayout.getInstance();
         }
 
-        if(state == ReservedLayout.STATE_RESERVED) {
+        if(state == CommonData.STATE_RESERVED) {
             currentLayout = ReservedLayout.getInstance();
         }
 
-        if(state == OccupiedLayout.STATE_OCCUPIED) {
+        if(state == CommonData.STATE_OCCUPIED) {
             currentLayout = OccupiedLayout.getInstance();
         }
 
-        if(state == AvailableLayout.STATE_AVAILABLE) {
+        if(state == CommonData.STATE_AVAILABLE) {
             currentLayout = AvailableLayout.getInstance();
         }
 
