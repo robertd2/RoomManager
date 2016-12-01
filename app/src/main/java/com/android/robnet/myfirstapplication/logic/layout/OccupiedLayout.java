@@ -1,5 +1,10 @@
 package com.android.robnet.myfirstapplication.logic.layout;
 
+import android.graphics.Color;
+import android.support.v4.content.ContextCompat;
+
+import com.android.robnet.myfirstapplication.R;
+
 /**
  * Created by AMARCINI on 01.12.2016.
  */
@@ -22,7 +27,8 @@ public class OccupiedLayout extends StateLayout {
 
     @Override
     public void setBackground(Layout layout) {
-
+        layout.getLayoutTop().setBackgroundColor(Color.RED);
+        layout.getLayoutBottom().setBackground(ContextCompat.getDrawable(layout.getContext(), R.drawable.red_gradient));
     }
 
     @Override
@@ -37,6 +43,6 @@ public class OccupiedLayout extends StateLayout {
 
     @Override
     public void setRoomStatus(Layout layout) {
-        layout.getScreenHint1().setText(STATUS);
+        layout.getRoomStatus().setText(STATUS);
     }
 }

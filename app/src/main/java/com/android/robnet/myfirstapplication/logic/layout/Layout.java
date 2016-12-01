@@ -1,5 +1,6 @@
 package com.android.robnet.myfirstapplication.logic.layout;
 
+import android.content.Context;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -26,12 +27,16 @@ public class Layout {
 
     StateLayout currentLayout;
 
+    Context context;
+
     public Layout(View rootView) {
         roomStatus = (TextView) rootView.findViewById(R.id.roomStatus);
         roomName = (TextView) rootView.findViewById(R.id.roomName);
         time = (TextView) rootView.findViewById(R.id.time);
         screenHint1 = (TextView) rootView.findViewById(R.id.screenHint1);
         screenHint2 = (TextView) rootView.findViewById(R.id.screenHint2);
+        layoutTop = (RelativeLayout) rootView.findViewById(R.id.layoutTop);
+        layoutBottom = (RelativeLayout) rootView.findViewById(R.id.layoutBottom);
     }
 
     public void setLayout(int state) {
@@ -127,5 +132,13 @@ public class Layout {
 
     public void setCommonData(CommonData commonData) {
         this.commonData = commonData;
+    }
+
+    public void setContext(Context context) {
+        this.context = context;
+    }
+
+    public Context getContext() {
+        return context;
     }
 }

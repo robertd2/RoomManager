@@ -46,6 +46,7 @@ public class MainActivity extends Activity {
 
 
         layout = new Layout(getWindow().getDecorView().getRootView());
+        layout.setContext(this);
         layout.setCommonData(new CommonData());
         layout.setLayout(0);
         Log.i("rooms", "done");
