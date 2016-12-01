@@ -27,17 +27,19 @@ public class ReservedLayout extends StateLayout {
     }
 
     @Override
-    public void setTime(Layout layout) {
-
-    }
-
-    @Override
     public void setHintText1(Layout layout) {
-        layout.getScreenHint1().setText(STATUS);
+
+        layout.getScreenHint1().setText("THE NEAREST FREE ROOM");
+
     }
 
     @Override
     public void setHintText2(Layout layout) {
+        layout.getScreenHint2().setText(layout.getCommonData().getTheNearestEmptyRoom());
+    }
 
+    @Override
+    public void setRoomStatus(Layout layout) {
+        layout.getScreenHint1().setText(STATUS);
     }
 }

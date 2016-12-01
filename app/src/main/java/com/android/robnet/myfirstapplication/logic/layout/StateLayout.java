@@ -9,6 +9,7 @@ public abstract class StateLayout {
     abstract void setBackground(Layout layout);
     abstract void setHintText1(Layout layout);
     abstract void setHintText2(Layout layout);
+    abstract void setRoomStatus(Layout layout);
 
     void setName(Layout layout) { layout.getRoomName().setText(layout.getCommonData().getRoomName()); }
 

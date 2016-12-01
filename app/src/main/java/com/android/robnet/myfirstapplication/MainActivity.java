@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.android.robnet.myfirstapplication.common.CommonData;
 import com.android.robnet.myfirstapplication.logic.layout.Layout;
 
 import org.java_websocket.client.WebSocketClient;
@@ -43,7 +44,9 @@ public class MainActivity extends Activity {
             }
         });
 
+
         layout = new Layout(getWindow().getDecorView().getRootView());
+        layout.setCommonData(new CommonData());
         layout.setLayout(0);
         Log.i("rooms", "done");
 

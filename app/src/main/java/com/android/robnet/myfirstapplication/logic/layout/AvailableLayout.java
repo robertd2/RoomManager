@@ -27,12 +27,22 @@ public class AvailableLayout extends StateLayout {
     }
 
     @Override
-    public void setHintText1(Layout layout) {
+    public void setRoomStatus(Layout layout) {
         layout.getScreenHint1().setText(STATUS);
     }
 
     @Override
-    public void setHintText2(Layout layout) {
+    public void setHintText1(Layout layout) {
+        layout.getScreenHint1().setText(layout.getCommonData().getTime());
+    }
 
+    @Override
+    public void setHintText2(Layout layout) {
+        layout.getScreenHint2().setText("NEXT MEETING");
+    }
+
+    @Override
+    void setTime(Layout layout) {
+        layout.getTime().setText("");
     }
 }
