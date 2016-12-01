@@ -62,6 +62,7 @@ public class Layout {
         currentLayout.setHintText2(this);
         currentLayout.setName(this);
         currentLayout.setTime(this);
+        currentLayout.setRoomStatus(this);
     }
 
     public RelativeLayout getLayoutTop() {
