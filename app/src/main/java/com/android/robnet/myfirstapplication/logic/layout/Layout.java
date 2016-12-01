@@ -39,7 +39,12 @@ public class Layout {
         layoutBottom = (RelativeLayout) rootView.findViewById(R.id.layoutBottom);
     }
 
-    public void setLayout(int state) {
+    public void setLayout() {
+        long state = commonData.getState();
+        setLayout(state);
+    }
+
+    public void setLayout(long state) {
         currentLayout = UnknownLayout.getInstance();
 
         if(state == UnknownLayout.STATE_UNKNOWN) {

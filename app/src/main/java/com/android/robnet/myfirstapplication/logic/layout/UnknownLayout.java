@@ -34,12 +34,12 @@ public class UnknownLayout extends StateLayout {
 
     @Override
     public void setHintText1(Layout layout) {
-        layout.getScreenHint1().setText("THE NEAREST FREE ROOM");
+        layout.getScreenHint1().setText("CONNECTING");
     }
 
     @Override
     public void setHintText2(Layout layout) {
-        layout.getScreenHint2().setText(layout.getCommonData().getTheNearestEmptyRoom());
+        layout.getScreenHint2().setText("TO SERVER...");
     }
 
     @Override
