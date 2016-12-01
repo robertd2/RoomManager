@@ -7,6 +7,7 @@ import org.json.JSONObject;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
 
@@ -32,7 +33,10 @@ public class CommonDataFactory {
         commonData.setState(randomState);
 
         long ms = -946771200000L + (Math.abs(generator.nextLong()) % (70L * 365 * 24 * 60 * 60 * 1000));
-        commonData.setTime(new Date(ms).toString());
+        SimpleDateFormat localDateFormat = new SimpleDateFormat("HH:mm");
+        String time = localDateFormat.format(new Date(ms));
+
+        commonData.setTime(time);
 
         return commonData;
     }
