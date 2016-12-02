@@ -14,7 +14,7 @@ import java.util.Arrays;
  * Created by rober on 01.12.2016.
  */
 
-public class NdefReaderTask extends AsyncTask<Tag, Void, String> {
+public class NdefReaderTask2 extends AsyncTask<Tag, Void, String> {
     @Override
     protected String doInBackground(Tag... params) {
         Log.i("NFC","inside NFC task");
