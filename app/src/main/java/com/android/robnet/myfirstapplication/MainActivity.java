@@ -13,11 +13,13 @@ import android.nfc.tech.NfcA;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 
 import com.android.robnet.myfirstapplication.common.CommonData;
+import com.android.robnet.myfirstapplication.connection.CommonDataFactory;
 import com.android.robnet.myfirstapplication.connection.WebSocketConnect;
 import com.android.robnet.myfirstapplication.logic.layout.Layout;
 
@@ -28,7 +30,7 @@ import java.util.Arrays;
 public class MainActivity extends Activity {
 
     private Layout layout;
-    private WebSocketConnect wsConnect;
+    private static WebSocketConnect wsConnect;
 
     public static final String MIME_TEXT_PLAIN = "text/plain";
     private NfcAdapter mNfcAdapter;
@@ -46,7 +48,16 @@ public class MainActivity extends Activity {
         layout.setLayout(0);
         Log.i("rooms", "connecting to server...");
 
-        //wsConnect = new WebSocketConnect(this, layout);
+        String android_id = Settings.Secure.getString(this.getContentResolver(),
+                Settings.Secure.ANDROID_ID);
+        CommonDataFactory.setDeviceId(Long.parseLong(android_id.replaceAll("[^\\d.]", "")));
+
+        Log.i("rooms", "device id = " + Long.parseLong(android_id.replaceAll("[^\\d.]", "")));
+        Log.i("rooms", "connecting to server...");
+
+        if(wsConnect == null) {
+            wsConnect = new WebSocketConnect(this, layout);
+        }
 
         mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
 
@@ -124,6 +135,12 @@ public class MainActivity extends Activity {
             Log.i("NFC","NFC card detected");
             String tagId = ByteArrayToHexString(intent.getByteArrayExtra(NfcAdapter.EXTRA_ID));
             Log.i("NFC ID",tagId);
+
+            CommonData newCD = CommonDataFactory.getNewCommonData();
+            newCD.setNfcSerial(tagId);
+            newCD.setTime("30");
+            newCD.setState(3);
+            wsConnect.sendMessage(CommonDataFactory.toJSON(newCD));
         }
     }
 

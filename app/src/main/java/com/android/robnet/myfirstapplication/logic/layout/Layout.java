@@ -14,6 +14,8 @@ import com.android.robnet.myfirstapplication.common.CommonData;
 
 public class Layout {
 
+    long currentState = 0;
+
     CommonData commonData;
 
     RelativeLayout layoutTop;
@@ -62,6 +64,8 @@ public class Layout {
         if(state == CommonData.STATE_AVAILABLE) {
             currentLayout = AvailableLayout.getInstance();
         }
+
+        currentState = state;
 
         setData();
     }

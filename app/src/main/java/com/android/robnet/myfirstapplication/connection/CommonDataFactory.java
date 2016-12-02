@@ -18,6 +18,11 @@ import java.util.Random;
 public class CommonDataFactory {
 
     private static Gson GSON = new Gson();
+    private static long DEVICE_ID = -1;
+
+    public static void setDeviceId(long id) {
+        DEVICE_ID = id;
+    }
 
     public static CommonData getRandomCommonData() {
 
@@ -45,7 +50,7 @@ public class CommonDataFactory {
 
         CommonData commonData = new CommonData();
 
-        commonData.setRoomId(2137);
+        commonData.setRoomId(DEVICE_ID);
         commonData.setState(0);
 
         return commonData;
@@ -57,6 +62,14 @@ public class CommonDataFactory {
 
     public static CommonData fromJSON(String response) {
         return GSON.fromJson(response, CommonData.class);
+    }
+
+    public static CommonData getNewCommonData() {
+        CommonData commonData = new CommonData();
+
+        commonData.setRoomId(DEVICE_ID);
+
+        return commonData;
     }
 
 }

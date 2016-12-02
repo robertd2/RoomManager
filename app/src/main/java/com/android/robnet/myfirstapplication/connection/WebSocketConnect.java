@@ -76,13 +76,13 @@ public class WebSocketConnect {
                     @Override
                     public void run() {
                         Log.i("BACK MESSAGE", message);
-                        CommonData cData = CommonDataFactory.fromJSON(message);
-                        layout.setCommonData(cData);
-                        layout.setLayout();
-
-
-                        // wydmuszka, ze lecimy dalej:
-                        sendMessage(CommonDataFactory.toJSON(CommonDataFactory.getRandomCommonData()));
+                        try {
+                            CommonData cData = CommonDataFactory.fromJSON(message);
+                            layout.setCommonData(cData);
+                            layout.setLayout();
+                        } catch (Exception e) {
+                            layout.setLayout(0);
+                        }
                     }
                 });
             }
@@ -107,6 +107,11 @@ public class WebSocketConnect {
     }
 
     public void sendMessage(String message) {
-        mWebSocketClient.send(message);
+        if(mWebSocketClient.getConnection().isOpen()) {
+            mWebSocketClient.send(message);
+        } else {
+            layout.setLayout(0);
+        }
     }
+
 }
