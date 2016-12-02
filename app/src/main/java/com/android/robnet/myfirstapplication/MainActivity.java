@@ -21,7 +21,9 @@ import android.view.WindowManager;
 import com.android.robnet.myfirstapplication.common.CommonData;
 import com.android.robnet.myfirstapplication.connection.CommonDataFactory;
 import com.android.robnet.myfirstapplication.connection.WebSocketConnect;
+import com.android.robnet.myfirstapplication.logic.layout.AvailableLayout;
 import com.android.robnet.myfirstapplication.logic.layout.Layout;
+import com.android.robnet.myfirstapplication.logic.layout.OccupiedLayout;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
@@ -138,9 +140,24 @@ public class MainActivity extends Activity {
 
             CommonData newCD = CommonDataFactory.getNewCommonData();
             newCD.setNfcSerial(tagId);
-            newCD.setTime("30");
-            newCD.setState(3);
-            wsConnect.sendMessage(CommonDataFactory.toJSON(newCD));
+
+            if(layout.getCurrentState() == OccupiedLayout.STATE_OCCUPIED && layout.getCurrentNFCUser().equals(tagId)) {
+                newCD.setState(1);
+
+                wsConnect.sendMessage(CommonDataFactory.toJSON(newCD));
+            } else {
+                if(layout.getCurrentState() == AvailableLayout.STATE_AVAILABLE) {
+                    newCD.setTime("30");
+                    newCD.setState(3);
+
+                    layout.setCurrentNFCUser(tagId);
+
+                    wsConnect.sendMessage(CommonDataFactory.toJSON(newCD));
+                }
+            }
+
+
+
         }
     }
 

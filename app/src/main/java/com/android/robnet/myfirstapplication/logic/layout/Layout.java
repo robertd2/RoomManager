@@ -15,6 +15,7 @@ import com.android.robnet.myfirstapplication.common.CommonData;
 public class Layout {
 
     long currentState = 0;
+    String currentNFCUser = "0";
 
     CommonData commonData;
 
@@ -149,5 +150,17 @@ public class Layout {
 
     public Context getContext() {
         return context;
+    }
+
+    public void setCurrentNFCUser(String currentNFCUser) {
+        this.currentNFCUser = currentNFCUser;
+    }
+
+    public String getCurrentNFCUser() {
+        return currentNFCUser;
+    }
+
+    public long getCurrentState() {
+        return currentState;
     }
 }
